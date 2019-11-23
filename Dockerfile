@@ -17,6 +17,7 @@ RUN \
     apt-get update && \
     apt-get install -y \
       tzdata \
+      udev \
       curl \
       xmlstarlet \
       uuid-runtime \
@@ -24,7 +25,12 @@ RUN \
       beignet-opencl-icd \
       ocl-icd-libopencl1 \
     && \
-    \
+
+echo "**** Udevadm hack ****" && \
+mv /sbin/udevadm /sbin/udevadm.bak && \
+echo "exit 0" > /sbin/udevadm && \
+chmod +x /sbin/udevadm && \
+
 # Fetch and extract S6 overlay
     curl -J -L -o /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.gz https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.gz && \
     tar xzf /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.gz -C / --exclude='./bin' && \
