@@ -1,3 +1,5 @@
+# THIS FORK IS NOW ARCHIVED since the udev error does not exist anymore
+
 # Fork of the Official Docker container for Plex Media Server
 
 # cornelicorn/pms-docker
